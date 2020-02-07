@@ -152,6 +152,22 @@ class ParseNodeDrawable(ParseNode):
                         return False
         return True
 
+    def toTurkishSentence(self) -> str:
+        if len(self.children) == 0:
+            if self.getLayerData(ViewLayerType.TURKISH_WORD) is not None and not self.isDummyNode():
+                return " " + self.getLayerData(ViewLayerType.TURKISH_WORD).replace("-LRB-", "(").\
+                    replace("-RRB-", ")").replace("-LSB-", "[").replace("-RSB-", "]").replace("-LCB-", "{").\
+                    replace("-RCB-", "}").replace("-lrb-", "(").replace("-rrb-", ")").replace("-lsb-", "[").\
+                    replace("-rsb-", "]").replace("-lcb", "{").replace("-rcb-", "}")
+            else:
+                return " "
+        else:
+            st = ""
+            for child in self.children:
+                if isinstance(child, ParseNodeDrawable):
+                    st += child.toSentence()
+            return st
+
     def checkGazetteer(self, gazetteer: Gazetteer, word: str):
         if gazetteer.contains(word) and self.getParent().getData().getName() == "NNP":
             self.getLayerInfo().setLayerData(ViewLayerType.NER, gazetteer.getName())

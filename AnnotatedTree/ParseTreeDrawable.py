@@ -1,9 +1,16 @@
+from AnnotatedSentence.AnnotatedSentence import AnnotatedSentence
 from AnnotatedSentence.ViewLayerType import ViewLayerType
 from Corpus.FileDescription import FileDescription
 from ParseTree.ParseNode import ParseNode
 from ParseTree.ParseTree import ParseTree
+from WordNet.WordNet import WordNet
 
 from AnnotatedTree.ParseNodeDrawable import ParseNodeDrawable
+from AnnotatedTree.Processor.Condition.IsPredicateVerbNode import IsPredicateVerbNode
+from AnnotatedTree.Processor.Condition.IsTurkishLeafNode import IsTurkishLeafNode
+from AnnotatedTree.Processor.Condition.IsVPNode import IsVPNode
+from AnnotatedTree.Processor.Condition.IsVerbNode import IsVerbNode
+from AnnotatedTree.Processor.NodeDrawableCollector import NodeDrawableCollector
 
 
 class ParseTreeDrawable(ParseTree):
@@ -94,3 +101,22 @@ class ParseTreeDrawable(ParseTree):
     def clearLayer(self, viewLayerType: ViewLayerType):
         if self.root is not None and isinstance(self.root, ParseNodeDrawable):
             self.root.clearLayer(viewLayerType)
+
+    def generateAnnotatedSentence(self) -> AnnotatedSentence:
+        sentence = AnnotatedSentence()
+        nodeDrawableCollector = NodeDrawableCollector(self.root, IsTurkishLeafNode())
+        leafList = nodeDrawableCollector.collect()
+        for parseNode in leafList:
+            if isinstance(parseNode, ParseNodeDrawable):
+                layers = parseNode.getLayerInfo()
+                for i in range(layers.getNumberOfWords()):
+                    sentence.addWord(layers.toAnnotatedWord(i))
+        return sentence
+
+    def extractNodesWithVerbs(self, wordNet: WordNet) -> list:
+        nodeDrawableCollector = NodeDrawableCollector(self.root, IsVerbNode(wordNet))
+        return nodeDrawableCollector.collect()
+
+    def extractNodesWithPredicateVerbs(self, wordNet: WordNet) -> list:
+        nodeDrawableCollector = NodeDrawableCollector(self.root, IsPredicateVerbNode(wordNet))
+        return nodeDrawableCollector.collect()
