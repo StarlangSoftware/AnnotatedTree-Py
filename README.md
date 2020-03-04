@@ -1,5 +1,5 @@
 # AnnotatedTree-Py
-Annotated constituency treebank library.
+
 For Developers
 ============
 You can also see either [Java](https://github.com/olcaytaner/AnnotatedTree) 
@@ -49,7 +49,6 @@ Steps for opening the cloned project:
 * Choose `AnnotatedTree-Py` file
 * Select open as project option
 * Couple of seconds, dependencies with Maven will be downloaded. 
-
 
 ## Compile
 
