@@ -60,19 +60,16 @@ Detailed Description
 
 İşaretlenmiş TreeBank'ı yüklemek için
 
-	TreeBankDrawable(File folder, String pattern)
-	a = new TreeBankDrawable(new File("/Turkish-Phrase"), ".train")
+	TreeBankDrawable(folder: str, String pattern: str)
+	a = TreeBankDrawable("/Turkish-Phrase", ".train")
 
-	TreeBankDrawable(File folder)
-	a = new TreeBankDrawable(new File("/Turkish-Phrase"))
-
-	TreeBankDrawable(File folder, String pattern, int from, int to)
-	a = new TreeBankDrawable(new File("/Turkish-Phrase"), ".train", 1, 500)
+	TreeBankDrawable(folder: str)
+	a = new TreeBankDrawable("/Turkish-Phrase")
 
 Bir TreeBankDrawable'daki tüm ağaçlara erişmek için
 
-	for (int i = 0; i < a.sentenceCount(); i++){
-		ParseTreeDrawable parseTree = (ParseTreeDrawable) a.get(i);
+	for i in range(a.sentenceCount()):
+		parseTree = a.get(i);
 		....
 	}
 
@@ -80,21 +77,21 @@ Bir TreeBankDrawable'daki tüm ağaçlara erişmek için
 
 Kaydedilmiş bir ParseTreeDrawable'yi yüklemek için
 
-	ParseTreeDrawable(FileInputStream file)
+	ParseTreeDrawable(file: str)
 	
 kullanılır. Genel olarak tek tek ParseTree yüklemek yerine yukarıda anlatıldığı gibi bir TreeBankDrawable yüklemek daha mantıklıdır.
 
 Bir ParseTreeDrawable'nin düğüm sayısını
 
-	int nodeCount()
+	nodeCount() -> int
 	
 yaprak sayısını 
 
-	int leafCount()
+	leafCount() -> int
 	
 içinde yer alan kelime sayısını da
 
-	int wordCount(boolean excludeStopWords)
+	wordCount(excludeStopWords: bool) -> int
 	
 metodları ile bulabiliriz.
 
@@ -103,55 +100,44 @@ metodları ile bulabiliriz.
 İşaretlenmiş bir kelimenin bilgileri LayerInfo sınıfında tutulur. İşaretlenmiş kelimenin morfolojik
 analizi
 
-	MorphologicalParse getMorphologicalParseAt(int index)
+	getMorphologicalParseAt(index: int) -> MorphologicalParse
 
 İşaretlenmiş kelimenin anlamı
 
-	String getSemanticAt(int index)
+	getSemanticAt(self, index: int) -> str
 
 İşaretlenmiş kelimenin özne, dolaylı tümleç, vs. shallow parse tagı
 
-	String getShallowParseAt(int index)
+	getShallowParseAt(self, index: int) -> str
 
 İşaretlenmiş kelimenin argüman tagı
 
-	Argument getArgumentAt(int index)
+	getArgumentAt(self, index: int) -> Argument
 	
 Bir düğümdeki kelime sayısı
 
-	int getNumberOfWords()
+	getNumberOfWords(self) -> int
 
 ## Automatic Annotation
 
 Bir cümlenin argümanlarını otomatik olarak belirlemek için
 
-	TurkishAutoArgument()
+	TurkishAutoArgument(self, secondLanguage: ViewLayerType)
 
 sınıfı kullanılır. 
 
-	void autoArgument(ParseTreeDrawable parseTree, Frameset frameset);
+	autoArgument(self, parseTree: ParseTreeDrawable, frameset: Frameset)
 
 ile ağacın argümanları otomatik olarak işaretlenir.
 
-Bir cümlede otomatik olarak morfolojik belirsizlik gidermek için
-
-	TurkishTreeAutoDisambiguator(RootWordStatistics rootWordStatistics)
-								  
-sınıfı kullanılır. Örneğin,
-
-	a = TurkishTreeAutoDisambiguator(new RootWordStatistics());
-	a.autoDisambiguate(parseTree);
-
-ile ağacın morfolojik belirsizlik gidermesi otomatik olarak yapılır.
-
 Bir cümlede adlandırılmış varlık tanıma yapmak için
 
-	TurkishSentenceAutoNER()
+	TurkishSentenceAutoNER(self, secondLanguage: ViewLayerType)
 
 sınıfı kullanılır. Örneğin,
 
-	a = TurkishTreeAutoNER();
-	a.autoNER(parseTree);
+	a = TurkishTreeAutoNER()
+	a.autoNER(parseTree)
 
 ile ağacın varlık tanıma otomatik olarak yapılır.
 
@@ -161,7 +147,7 @@ Bir cümlede anlamsal işaretleme için
 
 sınıfı kullanılır. Örneğin,
 
-	a = TurkishTreeAutoSemantic();
-	a.autoSemantic(parseTree);
+	a = TurkishTreeAutoSemantic()
+	a.autoSemantic(parseTree)
 
 ile ağacın anlamsal işaretleme otomatik olarak yapılır.
