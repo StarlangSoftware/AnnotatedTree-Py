@@ -151,3 +151,23 @@ sınıfı kullanılır. Örneğin,
 	a.autoSemantic(parseTree)
 
 ile ağacın anlamsal işaretleme otomatik olarak yapılır.
+
+## Cite
+If you use this resource on your research, please cite the following paper: 
+
+```
+@article{akcakaya,
+  title={An all-words sense annotated {T}urkish corpus},
+  author={S. Akçakaya and O. T. Y{\i}ld{\i}z},
+  journal={2018 2nd International Conference on Natural Language and Speech Processing (ICNLSP)},
+  year={2018},
+  pages={1-6}
+}
+
+@inproceedings{arican,
+  title={{E}nglish-{T}urkish Parallel Semantic Annotation of Penn-Treebank},
+  author={ B. N. Ar{\i}can and {\"O}. Bakay and B. Avar and O. T. Y{\i}ld{\i}z and {\"O}. Ergelen},
+  booktitle={Wordnet Conference},
+  pages={298},
+  year={2019}
+}
