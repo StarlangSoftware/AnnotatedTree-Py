@@ -8,7 +8,6 @@ from WordNet.WordNet import WordNet
 from AnnotatedTree.ParseNodeDrawable import ParseNodeDrawable
 from AnnotatedTree.Processor.Condition.IsPredicateVerbNode import IsPredicateVerbNode
 from AnnotatedTree.Processor.Condition.IsTurkishLeafNode import IsTurkishLeafNode
-from AnnotatedTree.Processor.Condition.IsVPNode import IsVPNode
 from AnnotatedTree.Processor.Condition.IsVerbNode import IsVerbNode
 from AnnotatedTree.Processor.NodeDrawableCollector import NodeDrawableCollector
 
