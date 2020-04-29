@@ -31,6 +31,7 @@ class LayerInfo:
         if info is None:
             self.layers = {}
         else:
+            self.layers = {}
             splitLayers = re.split("[{}]", info)
             for layer in splitLayers:
                 if len(layer) == 0:
