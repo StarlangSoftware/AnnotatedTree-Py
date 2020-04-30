@@ -15,7 +15,7 @@ class MorphologicalAnalysisLayer(MultiWordMultiItemLayer):
         if isinstance(layerValue, str):
             self.layerValue = layerValue
             if layerValue is not None:
-                splitWords = self.layerValue.split("\\s")
+                splitWords = self.layerValue.split(" ")
                 for word in splitWords:
                     self.items.append(MorphologicalParse(word))
         elif isinstance(layerValue, MorphologicalParse):

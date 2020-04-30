@@ -14,7 +14,7 @@ class MetaMorphemesMovedLayer(MultiWordMultiItemLayer):
         items = []
         self.layerValue = layerValue
         if layerValue is not None:
-            splitWords = layerValue.split("\\s")
+            splitWords = layerValue.split(" ")
             for word in splitWords:
                 items.append(MetamorphicParse(word))
 

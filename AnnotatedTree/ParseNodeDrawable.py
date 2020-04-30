@@ -39,7 +39,7 @@ class ParseNodeDrawable(ParseNode):
                     elif line[i] == ")":
                         parenthesisCount = parenthesisCount - 1
                     if parenthesisCount == 0 and len(childLine) != 0:
-                        self.children.append(ParseNode(self, childLine.strip(), False))
+                        self.children.append(ParseNodeDrawable(self, childLine.strip(), False, depth + 1))
                         childLine = ""
 
     def getLayerInfo(self) -> LayerInfo:

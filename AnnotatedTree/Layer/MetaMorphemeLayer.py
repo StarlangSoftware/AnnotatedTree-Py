@@ -16,7 +16,7 @@ class MetaMorphemeLayer(MetaMorphemesMovedLayer):
             self.layerValue = parse.__str__()
             self.items = []
             if layerValue is not None:
-                splitWords = self.layerValue.split("\\s")
+                splitWords = self.layerValue.split(" ")
                 for word in splitWords:
                     self.items.append(MetamorphicParse(word))
 

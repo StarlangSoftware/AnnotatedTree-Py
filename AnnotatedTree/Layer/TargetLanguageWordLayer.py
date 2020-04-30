@@ -12,7 +12,7 @@ class TargetLanguageWordLayer(MultiWordLayer):
         self.items = []
         self.layerValue = layerValue
         if layerValue is not None:
-            splitWords = layerValue.split("\\s")
+            splitWords = layerValue.split(" ")
             self.items.extend(splitWords)
 
     def getLayerSize(self, viewLayer: ViewLayerType) -> int:
