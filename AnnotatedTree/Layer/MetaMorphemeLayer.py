@@ -10,7 +10,7 @@ class MetaMorphemeLayer(MetaMorphemesMovedLayer):
         super().__init__(layerValue)
         self.layerName = "metaMorphemes"
 
-    def setLayerValue(self, layerValue: str):
+    def setLayerValueWithMetamorphicParse(self, layerValue: MetamorphicParse):
         if isinstance(layerValue, MetamorphicParse):
             parse = layerValue
             self.layerValue = parse.__str__()

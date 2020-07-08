@@ -4,7 +4,7 @@ from AnnotatedTree.Layer.WordLayer import WordLayer
 
 class MultiWordLayer(WordLayer):
 
-    items: list
+    items: list = {}
 
     def getItemAt(self, index: int) -> object:
         if index < len(self.items):
