@@ -11,12 +11,12 @@ class MetaMorphemesMovedLayer(MultiWordMultiItemLayer):
         self.setLayerValue(layerValue)
 
     def setLayerValue(self, layerValue: str):
-        items = []
+        self.items = []
         self.layerValue = layerValue
         if layerValue is not None:
             splitWords = layerValue.split(" ")
             for word in splitWords:
-                items.append(MetamorphicParse(word))
+                self.items.append(MetamorphicParse(word))
 
     def getLayerSize(self, viewLayer: ViewLayerType) -> int:
         size = 0
