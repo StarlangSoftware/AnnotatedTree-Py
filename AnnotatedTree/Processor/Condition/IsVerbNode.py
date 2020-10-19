@@ -20,6 +20,6 @@ class IsVerbNode(IsLeafNode):
             for i in range(layerInfo.getNumberOfMeanings()):
                 synSetId = layerInfo.getSemanticAt(i)
                 if self.__wordNet.getSynSetWithId(synSetId) is not None and \
-                        self.__wordNet.getSynSetWithId().getPos() == Pos.VERB:
+                        self.__wordNet.getSynSetWithId(synSetId).getPos() == Pos.VERB:
                     return True
         return False

@@ -5,7 +5,7 @@ from AnnotatedTree.Layer.MultiWordLayer import MultiWordLayer
 
 class TargetLanguageWordLayer(MultiWordLayer):
 
-    def TargetLanguageWordLayer(self, layerValue: str):
+    def __init__(self, layerValue: str):
         self.setLayerValue(layerValue)
 
     def setLayerValue(self, layerValue: str):

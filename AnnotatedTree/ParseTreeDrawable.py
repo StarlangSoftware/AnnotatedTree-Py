@@ -17,7 +17,7 @@ class ParseTreeDrawable(ParseTree):
     __fileDescription: FileDescription
     __name: str
 
-    def __init__(self, fileDescription: FileDescription, path: str=None):
+    def __init__(self, fileDescription, path: str=None):
         if path is None:
             if isinstance(fileDescription, FileDescription):
                 self.__fileDescription = fileDescription

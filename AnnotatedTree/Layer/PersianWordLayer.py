@@ -4,5 +4,5 @@ from AnnotatedTree.Layer.TargetLanguageWordLayer import TargetLanguageWordLayer
 class PersianWordLayer(TargetLanguageWordLayer):
 
     def __init__(self, layerValue: str):
-        super().TargetLanguageWordLayer(layerValue)
+        super().__init__(layerValue)
         self.layerName = "persian"

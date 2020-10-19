@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='NlpToolkit-AnnotatedTree',
-    version='1.0.7',
+    version='1.0.8',
     packages=['AnnotatedTree', 'AnnotatedTree.Layer', 'AnnotatedTree.Processor', 'AnnotatedTree.Processor.Condition',
               'AnnotatedTree.Processor.LayerExist', 'AnnotatedTree.Processor.LeafConverter',
               'AnnotatedTree.Processor.NodeModification', 'AnnotatedTree.AutoProcessor',
