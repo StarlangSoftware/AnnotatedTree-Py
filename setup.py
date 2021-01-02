@@ -2,13 +2,11 @@ from setuptools import setup
 
 setup(
     name='NlpToolkit-AnnotatedTree',
-    version='1.0.8',
+    version='1.0.9',
     packages=['AnnotatedTree', 'AnnotatedTree.Layer', 'AnnotatedTree.Processor', 'AnnotatedTree.Processor.Condition',
               'AnnotatedTree.Processor.LayerExist', 'AnnotatedTree.Processor.LeafConverter',
-              'AnnotatedTree.Processor.NodeModification', 'AnnotatedTree.AutoProcessor',
-              'AnnotatedTree.AutoProcessor.AutoNER', 'AnnotatedTree.AutoProcessor.AutoArgument',
-              'AnnotatedTree.AutoProcessor.AutoSemantic', 'AnnotatedTree.AutoProcessor.AutoMetaMorphemeMovement'],
-    url='https://github.com/olcaytaner/AnnotatedTree-Py',
+              'AnnotatedTree.Processor.NodeModification'],
+    url='https://github.com/StarlangSoftware/AnnotatedTree-Py',
     license='',
     author='olcaytaner',
     author_email='olcaytaner@isikun.edu.tr',
