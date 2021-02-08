@@ -1,3 +1,24 @@
+# Constituency TreeBank
+
+A treebank is a corpus where the sentences in each language are syntactically (if necessary morphologically) annotated. In the treebanks, the syntactic annotation usually follows constituent and/or dependency structure.
+
+Treebanks annotated for the syntactic or semantic structures of the sentences are essential for developing state-of-the-art statistical natural language processing (NLP) systems including part-of-speech-taggers, syntactic parsers, and machine translation systems. There are two main groups of syntactic treebanks, namely treebanks annotated for constituency (phrase structure) and the ones that are annotated for dependency structure.
+
+## Data Format
+
+We extend the original format with the relevant information, given between curly braces. For example, the word 'problem' in a sentence in the standard Penn Treebank notation, may be represented in the data format provided below:
+
+	(NN problem)
+
+After all levels of processing are finished, the data structure stored for the same word has the following form in the system.
+
+	(NN {turkish=sorunu} {english=problem} 
+	{morphologicalAnalysis=sorun+NOUN+A3SG+PNON+ACC}
+	{metaMorphemes=sorun+yH}
+	{semantics=TUR10-0703650})
+
+As is self-explanatory, 'turkish' tag shows the original Turkish word; 'morphologicalanalysis' tag shows the correct morphological parse of that word; 'semantics' tag shows the ID of the correct sense of that word; 'namedEntity' tag shows the named entity tag of that word; 'propbank' tag shows the semantic role of that word for the verb synset id (frame id in the frame file) which is also given in that tag.
+
 For Developers
 ============
 
@@ -48,7 +69,6 @@ Detailed Description
 + [TreeBankDrawable](#treebankdrawable)
 + [ParseTreeDrawable](#parsetreedrawable)
 + [LayerInfo](#layerinfo)
-+ [Automatic Annotation](#automatic-annotation)
 
 ## TreeBankDrawable
 
@@ -111,57 +131,3 @@ the argument tag of the annotated word:
 the word count in a node:
 
 	getNumberOfWords(self) -> int
-
-## Automatic Annotation
-
-To assign the arguments of a sentence automatically:
-
-	TurkishAutoArgument(self, secondLanguage: ViewLayerType)
-
-above class is used. 
-
-	autoArgument(self, parseTree: ParseTreeDrawable, frameset: Frameset)
-
-With above line, the arguments of the tree are annotated automatically.
-
-To apply named entity recognition to a sentence:
-
-	TurkishSentenceAutoNER(self, secondLanguage: ViewLayerType)
-
-above class is used. For example,
-
-	a = TurkishTreeAutoNER()
-	a.autoNER(parseTree)
-
-with the above code, automatic named entity recognition of a tree can be made.
-
-To make semantic annotation in a sentence:
-
-	TurkishTreeAutoSemantic()
-
-above class can be used. For example,
-
-	a = TurkishTreeAutoSemantic()
-	a.autoSemantic(parseTree)
-
-with above code, automatic semantic annotation of the tree can be made.
-
-## Cite
-If you use this resource on your research, please cite the following paper: 
-
-```
-@article{akcakaya,
-  title={An all-words sense annotated {T}urkish corpus},
-  author={S. Akçakaya and O. T. Y{\i}ld{\i}z},
-  journal={2018 2nd International Conference on Natural Language and Speech Processing (ICNLSP)},
-  year={2018},
-  pages={1-6}
-}
-
-@inproceedings{arican,
-  title={{E}nglish-{T}urkish Parallel Semantic Annotation of Penn-Treebank},
-  author={ B. N. Ar{\i}can and {\"O}. Bakay and B. Avar and O. T. Y{\i}ld{\i}z and {\"O}. Ergelen},
-  booktitle={Wordnet Conference},
-  pages={298},
-  year={2019}
-}
