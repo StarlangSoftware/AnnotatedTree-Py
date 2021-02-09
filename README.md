@@ -131,3 +131,22 @@ the argument tag of the annotated word:
 the word count in a node:
 
 	getNumberOfWords(self) -> int
+
+# Cite
+
+	@inproceedings{yildiz-etal-2014-constructing,
+    	title = "Constructing a {T}urkish-{E}nglish Parallel {T}ree{B}ank",
+    	author = {Y{\i}ld{\i}z, Olcay Taner  and
+      	Solak, Ercan  and
+      	G{\"o}rg{\"u}n, Onur  and
+      	Ehsani, Razieh},
+    	booktitle = "Proceedings of the 52nd Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)",
+    	month = jun,
+    	year = "2014",
+    	address = "Baltimore, Maryland",
+    	publisher = "Association for Computational Linguistics",
+    	url = "https://www.aclweb.org/anthology/P14-2019",
+    	doi = "10.3115/v1/P14-2019",
+    	pages = "112--117",
+	}
+	
