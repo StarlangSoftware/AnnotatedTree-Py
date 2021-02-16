@@ -57,7 +57,7 @@ class LayerInfo:
                     self.layers[ViewLayerType.SEMANTICS] = TurkishSemanticLayer(layerValue)
                 elif layerType == "namedEntity":
                     self.layers[ViewLayerType.NER] = NERLayer(layerValue)
-                elif layerType == "propbank":
+                elif layerType == "propBank":
                     self.layers[ViewLayerType.PROPBANK] = TurkishPropbankLayer(layerValue)
                 elif layerType == "englishPropbank":
                     self.layers[ViewLayerType.ENGLISH_PROPBANK] = EnglishPropbankLayer(layerValue)
