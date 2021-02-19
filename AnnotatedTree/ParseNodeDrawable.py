@@ -17,6 +17,7 @@ class ParseNodeDrawable(ParseNode):
         self.children = []
         self.parent = parent
         self.layers = None
+        self.data = None
         self.depth = depth
         parenthesisCount = 0
         childLine = ""
