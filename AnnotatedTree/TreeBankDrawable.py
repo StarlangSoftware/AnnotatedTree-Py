@@ -2,6 +2,7 @@ import os
 import re
 
 from AnnotatedSentence.ViewLayerType import ViewLayerType
+from Corpus.FileDescription import FileDescription
 from ParseTree.TreeBank import TreeBank
 
 from AnnotatedTree.ParseTreeDrawable import ParseTreeDrawable
@@ -19,6 +20,7 @@ class TreeBankDrawable(TreeBank):
                         parseTree = ParseTreeDrawable(fileName)
                         if parseTree.getRoot() is not None:
                             parseTree.setName(fileName)
+                            parseTree.setFileDescription(FileDescription(root, file))
                             self.parseTrees.append(parseTree)
 
     def getParseTrees(self) -> list:
