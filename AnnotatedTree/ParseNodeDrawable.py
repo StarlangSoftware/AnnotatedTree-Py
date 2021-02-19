@@ -184,5 +184,5 @@ class ParseNodeDrawable(ParseNode):
         else:
             st = "(" + self.data.getName()
             for child in self.children:
-                st = st + child.__str__()
-            return st + ")"
+                st = st + " " + child.__str__()
+            return st + ") "

@@ -65,12 +65,12 @@ class ParseTreeDrawable(ParseTree):
 
     def save(self):
         outputFile = open(self.__fileDescription.getFileName(), mode='w', encoding="utf8")
-        outputFile.write("(" + self.__str__() + ")\n")
+        outputFile.write("( " + self.__str__() + " )\n")
         outputFile.close()
 
     def saveWithPath(self, newPath: str):
         outputFile = open(self.__fileDescription.getFileName(newPath), mode='w', encoding="utf8")
-        outputFile.write("(" + self.__str__() + ")\n")
+        outputFile.write("( " + self.__str__() + " )\n")
         outputFile.close()
 
     def maxDepth(self) -> int:
