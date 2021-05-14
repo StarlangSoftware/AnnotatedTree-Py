@@ -12,11 +12,10 @@ class NodeDrawableCollector:
         self.__condition = condition
 
     def collectNodes(self, parseNode: ParseNodeDrawable, collected: list):
-        if self.__condition.satisfies(parseNode):
+        if self.__condition is None or self.__condition.satisfies(parseNode):
             collected.append(parseNode)
-        else:
-            for i in range(parseNode.numberOfChildren()):
-                self.collectNodes(parseNode.getChild(i), collected)
+        for i in range(parseNode.numberOfChildren()):
+            self.collectNodes(parseNode.getChild(i), collected)
 
     def collect(self) -> list:
         result = []
