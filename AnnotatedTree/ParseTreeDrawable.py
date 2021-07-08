@@ -1,4 +1,5 @@
 from AnnotatedSentence.AnnotatedSentence import AnnotatedSentence
+from AnnotatedSentence.AnnotatedWord import AnnotatedWord
 from AnnotatedSentence.ViewLayerType import ViewLayerType
 from Corpus.FileDescription import FileDescription
 from ParseTree.ParseNode import ParseNode
@@ -6,6 +7,7 @@ from ParseTree.ParseTree import ParseTree
 from WordNet.WordNet import WordNet
 
 from AnnotatedTree.ParseNodeDrawable import ParseNodeDrawable
+from AnnotatedTree.Processor.Condition.IsEnglishLeafNode import IsEnglishLeafNode
 from AnnotatedTree.Processor.Condition.IsPredicateVerbNode import IsPredicateVerbNode
 from AnnotatedTree.Processor.Condition.IsTurkishLeafNode import IsTurkishLeafNode
 from AnnotatedTree.Processor.Condition.IsVerbNode import IsVerbNode
@@ -101,15 +103,24 @@ class ParseTreeDrawable(ParseTree):
         if self.root is not None and isinstance(self.root, ParseNodeDrawable):
             self.root.clearLayer(viewLayerType)
 
-    def generateAnnotatedSentence(self) -> AnnotatedSentence:
+    def generateAnnotatedSentence(self, language: str=None) -> AnnotatedSentence:
         sentence = AnnotatedSentence()
-        nodeDrawableCollector = NodeDrawableCollector(self.root, IsTurkishLeafNode())
-        leafList = nodeDrawableCollector.collect()
-        for parseNode in leafList:
-            if isinstance(parseNode, ParseNodeDrawable):
-                layers = parseNode.getLayerInfo()
-                for i in range(layers.getNumberOfWords()):
-                    sentence.addWord(layers.toAnnotatedWord(i))
+        if language is None:
+            nodeDrawableCollector = NodeDrawableCollector(self.root, IsTurkishLeafNode())
+            leafList = nodeDrawableCollector.collect()
+            for parseNode in leafList:
+                if isinstance(parseNode, ParseNodeDrawable):
+                    layers = parseNode.getLayerInfo()
+                    for i in range(layers.getNumberOfWords()):
+                        sentence.addWord(layers.toAnnotatedWord(i))
+        else:
+            nodeDrawableCollector = NodeDrawableCollector(self.root, IsEnglishLeafNode())
+            leafList = nodeDrawableCollector.collect()
+            for parseNode in leafList:
+                if isinstance(parseNode, ParseNodeDrawable):
+                    newWord = AnnotatedWord("{" + language + "=" + parseNode.getData().getName() + "}{posTag="
+                                            + parseNode.getParent().getData().getName() + "}")
+                    sentence.addWord(newWord)
         return sentence
 
     def extractNodesWithVerbs(self, wordNet: WordNet) -> list:
