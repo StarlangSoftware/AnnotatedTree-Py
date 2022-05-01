@@ -123,6 +123,11 @@ class ParseTreeDrawable(ParseTree):
                     sentence.addWord(newWord)
         return sentence
 
+    def generateParseTree(self, surfaceForm: bool) -> ParseTree:
+        result = ParseTree(ParseNode(self.root.getData()))
+        self.root.generateParseNode(result.getRoot(), surfaceForm)
+        return result
+
     def extractNodesWithVerbs(self, wordNet: WordNet) -> list:
         nodeDrawableCollector = NodeDrawableCollector(self.root, IsVerbNode(wordNet))
         return nodeDrawableCollector.collect()

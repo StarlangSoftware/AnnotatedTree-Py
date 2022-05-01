@@ -175,6 +175,19 @@ class ParseNodeDrawable(ParseNode):
         if "'" in word and gazetteer.contains(word[:word.index("'")]) and self.getParent().getData().getName() == "NNP":
             self.getLayerInfo().setLayerData(ViewLayerType.NER, gazetteer.getName())
 
+    def generateParseNode(self, parseNode: ParseNode, surfaceForm: bool):
+        if len(self.children) == 0:
+            if surfaceForm:
+                parseNode.setData(Symbol(self.getLayerData(ViewLayerType.TURKISH_WORD)))
+            else:
+                parseNode.setData(Symbol(self.getLayerInfo().getMorphologicalParseAt(0).getWord().getName()))
+        else:
+            parseNode.setData(self.data)
+            for child in self.children:
+                newChild = ParseNode("")
+                parseNode.addChild(newChild)
+                child.generateParseNode(newChild, surfaceForm)
+
     def __str__(self) -> str:
         if len(self.children) < 2:
             if len(self.children) < 1:

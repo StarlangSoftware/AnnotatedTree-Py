@@ -19,6 +19,12 @@ class ParseTreeDrawableTest(unittest.TestCase):
         self.tree8 = ParseTreeDrawable(FileDescription("../trees/", "0008.dev"))
         self.tree9 = ParseTreeDrawable(FileDescription("../trees/", "0009.dev"))
 
+    def test_GenerateParseTree(self):
+        self.assertEqual("(S (NP (NP (ADJP (ADJP yeni) (ADJP Büyük))  (NP yasada))  (NP (ADJP karmaşık) (NP dil)) )  (VP (NP savaşı) (VP bulandırmıştır))  (. .)) ", self.tree0.generateParseTree(True).__str__())
+        self.assertEqual("(S (NP (NP (ADJP (ADJP yeni) (ADJP büyük))  (NP yasa))  (NP (ADJP karmaşık) (NP dil)) )  (VP (NP savaş) (VP bulan))  (. .)) ", self.tree0.generateParseTree(False).__str__())
+        self.assertEqual("(S (NP (NP (NP Yollar) (CONJP ve) (NP Araçlar))  (NP Komitesi))  (VP (ADVP (ADJP gelecek) (NP Salı))  (NP (PP (NP fatura) (PP için))  (NP (DP bir) (NP duruşma)) )  (VP yapacak))  (. .)) ", self.tree1.generateParseTree(True).__str__())
+        self.assertEqual("(S (NP (NP (NP yol) (CONJP ve) (NP araç))  (NP komite))  (VP (ADVP (ADJP gelecek) (NP salı))  (NP (PP (NP fatura) (PP için))  (NP (DP bir) (NP duruşma)) )  (VP yap))  (. .)) ", self.tree1.generateParseTree(False).__str__())
+
     def test_MaxDepth(self):
         self.assertEqual(5, self.tree0.maxDepth())
         self.assertEqual(5, self.tree1.maxDepth())
