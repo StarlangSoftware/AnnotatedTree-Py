@@ -1,3 +1,5 @@
+import os
+
 from AnnotatedSentence.AnnotatedSentence import AnnotatedSentence
 from AnnotatedSentence.AnnotatedWord import AnnotatedWord
 from AnnotatedSentence.ViewLayerType import ViewLayerType
@@ -17,17 +19,19 @@ from AnnotatedTree.Processor.NodeDrawableCollector import NodeDrawableCollector
 class ParseTreeDrawable(ParseTree):
 
     __fileDescription: FileDescription
-    __name: str
 
     def __init__(self, fileDescription, path: str=None):
         if path is None:
             if isinstance(fileDescription, FileDescription):
                 self.__fileDescription = fileDescription
+                self.name = fileDescription.getRawFileName()
                 self.readFromFile(self.__fileDescription.getFileName(fileDescription.getPath()))
             elif isinstance(fileDescription, str):
+                self.name = os.path.split(fileDescription)[1]
                 self.readFromFile(fileDescription)
         else:
             self.__fileDescription = FileDescription(path, fileDescription.getExtension(), fileDescription.getIndex())
+            self.name = self.__fileDescription.getRawFileName()
             self.readFromFile(self.__fileDescription.getFileName(fileDescription.getPath()))
 
     def setFileDescription(self, fileDescription: FileDescription):
@@ -48,12 +52,6 @@ class ParseTreeDrawable(ParseTree):
         else:
             self.root = None
         inputFile.close()
-
-    def setName(self, name: str):
-        self.__name = name
-
-    def getName(self) -> str:
-        return self.__name
 
     def nextTree(self, count: int):
         if self.__fileDescription.nextFileExists(count):

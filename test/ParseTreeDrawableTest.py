@@ -169,5 +169,6 @@ class ParseTreeDrawableTest(unittest.TestCase):
         self.assertEqual("{english=It}{posTag=PRP} {english=goes}{posTag=VBZ} {english=on}{posTag=RB} {english=to}{posTag=TO} {english=plug}{posTag=VB} {english=a}{posTag=DT} {english=few}{posTag=JJ} {english=diversified}{posTag=JJ} {english=Fidelity}{posTag=NNP} {english=funds}{posTag=NNS} {english=by}{posTag=IN} {english=name}{posTag=NN} {english=.}{posTag=.}",
                 self.tree.generateAnnotatedSentence("english").__str__())
 
+
 if __name__ == '__main__':
     unittest.main()

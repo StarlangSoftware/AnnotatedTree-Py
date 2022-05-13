@@ -19,7 +19,6 @@ class TreeBankDrawable(TreeBank):
                     if (pattern is None or pattern in fileName) and re.match("\\d+\\.", file):
                         parseTree = ParseTreeDrawable(fileName)
                         if parseTree.getRoot() is not None:
-                            parseTree.setName(fileName)
                             parseTree.setFileDescription(FileDescription(root, file))
                             self.parseTrees.append(parseTree)
 
