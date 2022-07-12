@@ -25,7 +25,7 @@ from AnnotatedTree.Layer.TurkishWordLayer import TurkishWordLayer
 
 
 class LayerInfo:
-    layers: map
+    layers: dict
 
     def __init__(self, info: str = None):
         if info is None:
