@@ -19,6 +19,11 @@ After all levels of processing are finished, the data structure stored for the s
 
 As is self-explanatory, 'turkish' tag shows the original Turkish word; 'morphologicalanalysis' tag shows the correct morphological parse of that word; 'semantics' tag shows the ID of the correct sense of that word; 'namedEntity' tag shows the named entity tag of that word; 'propbank' tag shows the semantic role of that word for the verb synset id (frame id in the frame file) which is also given in that tag.
 
+Video Lectures
+============
+
+[<img src=https://github.com/StarlangSoftware/AnnotatedTree/blob/master/video1.jpg width="50%">](https://youtu.be/LfMf1bo3tEw)
+
 For Developers
 ============
 
