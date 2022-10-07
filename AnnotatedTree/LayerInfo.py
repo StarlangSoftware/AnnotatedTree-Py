@@ -32,39 +32,41 @@ class LayerInfo:
             self.layers = {}
         else:
             self.layers = {}
-            splitLayers = re.split("[{}]", info)
-            for layer in splitLayers:
+            split_layers = re.split("[{}]", info)
+            for layer in split_layers:
                 if len(layer) == 0:
                     continue
-                layerType = layer[:layer.index("=")]
-                layerValue = layer[layer.index("=") + 1:]
-                if layerType == "turkish":
-                    self.layers[ViewLayerType.TURKISH_WORD] = TurkishWordLayer(layerValue)
-                elif layerType == "persian":
-                    self.layers[ViewLayerType.PERSIAN_WORD] = PersianWordLayer(layerValue)
-                elif layerType == "english":
-                    self.layers[ViewLayerType.ENGLISH_WORD] = EnglishWordLayer(layerValue)
-                elif layerType == "morphologicalAnalysis":
-                    self.layers[ViewLayerType.INFLECTIONAL_GROUP] = MorphologicalAnalysisLayer(layerValue)
-                    self.layers[ViewLayerType.PART_OF_SPEECH] = MorphologicalAnalysisLayer(layerValue)
-                elif layerType == "metaMorphemes":
-                    self.layers[ViewLayerType.META_MORPHEME] = MetaMorphemeLayer(layerValue)
-                elif layerType == "metaMorphemesMoved":
-                    self.layers[ViewLayerType.META_MORPHEME_MOVED] = MetaMorphemesMovedLayer(layerValue)
-                elif layerType == "dependency":
-                    self.layers[ViewLayerType.DEPENDENCY] = DependencyLayer(layerValue)
-                elif layerType == "semantics":
-                    self.layers[ViewLayerType.SEMANTICS] = TurkishSemanticLayer(layerValue)
-                elif layerType == "namedEntity":
-                    self.layers[ViewLayerType.NER] = NERLayer(layerValue)
-                elif layerType == "propBank":
-                    self.layers[ViewLayerType.PROPBANK] = TurkishPropbankLayer(layerValue)
-                elif layerType == "englishPropbank":
-                    self.layers[ViewLayerType.ENGLISH_PROPBANK] = EnglishPropbankLayer(layerValue)
-                elif layerType == "englishSemantics":
-                    self.layers[ViewLayerType.ENGLISH_SEMANTICS] = EnglishSemanticLayer(layerValue)
+                layer_type = layer[:layer.index("=")]
+                layer_value = layer[layer.index("=") + 1:]
+                if layer_type == "turkish":
+                    self.layers[ViewLayerType.TURKISH_WORD] = TurkishWordLayer(layer_value)
+                elif layer_type == "persian":
+                    self.layers[ViewLayerType.PERSIAN_WORD] = PersianWordLayer(layer_value)
+                elif layer_type == "english":
+                    self.layers[ViewLayerType.ENGLISH_WORD] = EnglishWordLayer(layer_value)
+                elif layer_type == "morphologicalAnalysis":
+                    self.layers[ViewLayerType.INFLECTIONAL_GROUP] = MorphologicalAnalysisLayer(layer_value)
+                    self.layers[ViewLayerType.PART_OF_SPEECH] = MorphologicalAnalysisLayer(layer_value)
+                elif layer_type == "metaMorphemes":
+                    self.layers[ViewLayerType.META_MORPHEME] = MetaMorphemeLayer(layer_value)
+                elif layer_type == "metaMorphemesMoved":
+                    self.layers[ViewLayerType.META_MORPHEME_MOVED] = MetaMorphemesMovedLayer(layer_value)
+                elif layer_type == "dependency":
+                    self.layers[ViewLayerType.DEPENDENCY] = DependencyLayer(layer_value)
+                elif layer_type == "semantics":
+                    self.layers[ViewLayerType.SEMANTICS] = TurkishSemanticLayer(layer_value)
+                elif layer_type == "namedEntity":
+                    self.layers[ViewLayerType.NER] = NERLayer(layer_value)
+                elif layer_type == "propBank":
+                    self.layers[ViewLayerType.PROPBANK] = TurkishPropbankLayer(layer_value)
+                elif layer_type == "englishPropbank":
+                    self.layers[ViewLayerType.ENGLISH_PROPBANK] = EnglishPropbankLayer(layer_value)
+                elif layer_type == "englishSemantics":
+                    self.layers[ViewLayerType.ENGLISH_SEMANTICS] = EnglishSemanticLayer(layer_value)
 
-    def setLayerData(self, viewLayer: ViewLayerType, layerValue: str):
+    def setLayerData(self,
+                     viewLayer: ViewLayerType,
+                     layerValue: str):
         if viewLayer == ViewLayerType.PERSIAN_WORD:
             self.layers[ViewLayerType.PERSIAN_WORD] = PersianWordLayer(layerValue)
             self.layers.pop(ViewLayerType.PERSIAN_WORD)
@@ -132,15 +134,18 @@ class LayerInfo:
         elif ViewLayerType.PERSIAN_WORD in self.layers:
             return self.layers[ViewLayerType.PERSIAN_WORD].size()
 
-    def getMultiWordAt(self, viewLayerType: ViewLayerType, index: int, layerName: str) -> str:
+    def getMultiWordAt(self,
+                       viewLayerType: ViewLayerType,
+                       index: int,
+                       layerName: str) -> str:
         if viewLayerType in self.layers:
             if isinstance(self.layers[viewLayerType], MultiWordLayer):
-                multiWordLayer = self.layers[viewLayerType]
-                if 0 <= index < multiWordLayer.size():
-                    return multiWordLayer.getItemAt(index)
+                multi_word_layer = self.layers[viewLayerType]
+                if 0 <= index < multi_word_layer.size():
+                    return multi_word_layer.getItemAt(index)
                 else:
                     if viewLayerType == ViewLayerType.SEMANTICS:
-                        return multiWordLayer.getItemAt(multiWordLayer.size() - 1)
+                        return multi_word_layer.getItemAt(multi_word_layer.size() - 1)
 
     def getTurkishWordAt(self, index: int) -> str:
         return self.getMultiWordAt(ViewLayerType.TURKISH_WORD, index, "turkish")
@@ -160,8 +165,8 @@ class LayerInfo:
     def getArgument(self) -> Argument:
         if ViewLayerType.PROPBANK in self.layers:
             if isinstance(self.layers[ViewLayerType.PROPBANK], TurkishPropbankLayer):
-                argumentLayer = self.layers[ViewLayerType.PROPBANK]
-                return argumentLayer.getArgument()
+                argument_layer = self.layers[ViewLayerType.PROPBANK]
+                return argument_layer.getArgument()
             else:
                 return None
         else:
@@ -176,30 +181,30 @@ class LayerInfo:
     def getMorphologicalParseAt(self, index: int) -> MorphologicalParse:
         if ViewLayerType.INFLECTIONAL_GROUP in self.layers:
             if isinstance(self.layers[ViewLayerType.INFLECTIONAL_GROUP], MultiWordLayer):
-                multiWordLayer = self.layers[ViewLayerType.INFLECTIONAL_GROUP]
-                if 0 <= index < multiWordLayer.size():
-                    return multiWordLayer.getItemAt(index)
+                multi_word_layer = self.layers[ViewLayerType.INFLECTIONAL_GROUP]
+                if 0 <= index < multi_word_layer.size():
+                    return multi_word_layer.getItemAt(index)
 
     def getMetamorphicParseAt(self, index: int) -> MetamorphicParse:
         if ViewLayerType.META_MORPHEME in self.layers:
             if isinstance(self.layers[ViewLayerType.META_MORPHEME], MultiWordLayer):
-                multiWordLayer = self.layers[ViewLayerType.META_MORPHEME]
-                if 0 <= index < multiWordLayer.size():
-                    return multiWordLayer.getItemAt(index)
+                multi_word_layer = self.layers[ViewLayerType.META_MORPHEME]
+                if 0 <= index < multi_word_layer.size():
+                    return multi_word_layer.getItemAt(index)
 
     def getMetaMorphemeAtIndex(self, index: int) -> str:
         if ViewLayerType.META_MORPHEME in self.layers:
             if isinstance(self.layers[ViewLayerType.META_MORPHEME], MetaMorphemeLayer):
-                metaMorphemeLayer = self.layers[ViewLayerType.META_MORPHEME]
-                if 0 <= index < metaMorphemeLayer.getLayerSize(ViewLayerType.META_MORPHEME):
-                    return metaMorphemeLayer.getLayerInfoAt(ViewLayerType.META_MORPHEME, index)
+                meta_morpheme_layer = self.layers[ViewLayerType.META_MORPHEME]
+                if 0 <= index < meta_morpheme_layer.getLayerSize(ViewLayerType.META_MORPHEME):
+                    return meta_morpheme_layer.getLayerInfoAt(ViewLayerType.META_MORPHEME, index)
 
     def getMetaMorphemeFromIndex(self, index: int) -> str:
         if ViewLayerType.META_MORPHEME in self.layers:
             if isinstance(self.layers[ViewLayerType.META_MORPHEME], MetaMorphemeLayer):
-                metaMorphemeLayer = self.layers[ViewLayerType.META_MORPHEME]
-                if 0 <= index < metaMorphemeLayer.getLayerSize(ViewLayerType.META_MORPHEME):
-                    return metaMorphemeLayer.getLayerInfoFrom(index)
+                meta_morpheme_layer = self.layers[ViewLayerType.META_MORPHEME]
+                if 0 <= index < meta_morpheme_layer.getLayerSize(ViewLayerType.META_MORPHEME):
+                    return meta_morpheme_layer.getLayerInfoFrom(index)
 
     def getLayerSize(self, viewLayer: ViewLayerType) -> int:
         if isinstance(self.layers[viewLayer], MultiWordMultiItemLayer):
@@ -207,7 +212,9 @@ class LayerInfo:
         elif isinstance(self.layers[viewLayer], SingleWordMultiItemLayer):
             return self.layers[viewLayer].getLayerSize(viewLayer)
 
-    def getLayerInfoAt(self, viewLayer: ViewLayerType, index: int) -> str:
+    def getLayerInfoAt(self,
+                       viewLayer: ViewLayerType,
+                       index: int) -> str:
         if viewLayer == ViewLayerType.META_MORPHEME_MOVED or viewLayer == ViewLayerType.PART_OF_SPEECH or \
                 viewLayer == ViewLayerType.INFLECTIONAL_GROUP:
             if isinstance(self.layers[viewLayer], MultiWordMultiItemLayer):
@@ -221,9 +228,9 @@ class LayerInfo:
 
     def getLayerDescription(self) -> str:
         result = ""
-        for viewLayerType in self.layers.keys():
-            if viewLayerType != ViewLayerType.PART_OF_SPEECH:
-                result += self.layers[viewLayerType].getLayerDescription()
+        for view_layer_type in self.layers.keys():
+            if view_layer_type != ViewLayerType.PART_OF_SPEECH:
+                result += self.layers[view_layer_type].getLayerDescription()
         return result
 
     def getLayerData(self, viewLayer: ViewLayerType) -> str:
@@ -238,11 +245,11 @@ class LayerInfo:
 
     def updateMetaMorphemesMoved(self):
         if ViewLayerType.META_MORPHEME in self.layers:
-            metaMorphemeLayer = self.layers[ViewLayerType.META_MORPHEME]
-            if metaMorphemeLayer.size() > 0:
-                result = metaMorphemeLayer.getItemAt(0).__str__()
-                for i in range(1, metaMorphemeLayer.size()):
-                    result += " " + metaMorphemeLayer.getItemAt(i).__str__()
+            meta_morpheme_layer = self.layers[ViewLayerType.META_MORPHEME]
+            if meta_morpheme_layer.size() > 0:
+                result = meta_morpheme_layer.getItemAt(0).__str__()
+                for i in range(1, meta_morpheme_layer.size()):
+                    result += " " + meta_morpheme_layer.getItemAt(i).__str__()
                 self.layers[ViewLayerType.META_MORPHEME_MOVED] = MetaMorphemesMovedLayer(result)
 
     def removeLayer(self, layerType: ViewLayerType):
@@ -275,49 +282,49 @@ class LayerInfo:
 
     def metaMorphemeRemove(self, index: int) -> MetamorphicParse:
         if ViewLayerType.META_MORPHEME in self.layers:
-            metaMorphemeLayer = self.layers[ViewLayerType.META_MORPHEME]
-            if 0 <= index < metaMorphemeLayer.getLayerSize(ViewLayerType.META_MORPHEME):
-                removedParse = metaMorphemeLayer.metaMorphemeRemoveFromIndex(index)
+            meta_morpheme_layer = self.layers[ViewLayerType.META_MORPHEME]
+            if 0 <= index < meta_morpheme_layer.getLayerSize(ViewLayerType.META_MORPHEME):
+                removed_parse = meta_morpheme_layer.metaMorphemeRemoveFromIndex(index)
                 self.updateMetaMorphemesMoved()
-        return removedParse
+        return removed_parse
 
     def divideIntoWords(self):
         result = []
         for i in range(self.getNumberOfWords()):
-            layerInfo = LayerInfo()
-            layerInfo.setLayerData(ViewLayerType.TURKISH_WORD, self.getTurkishWordAt(i))
-            layerInfo.setLayerData(ViewLayerType.ENGLISH_WORD, self.getLayerData(ViewLayerType.ENGLISH_WORD))
+            layer_info = LayerInfo()
+            layer_info.setLayerData(ViewLayerType.TURKISH_WORD, self.getTurkishWordAt(i))
+            layer_info.setLayerData(ViewLayerType.ENGLISH_WORD, self.getLayerData(ViewLayerType.ENGLISH_WORD))
             if self.layerExists(ViewLayerType.INFLECTIONAL_GROUP):
-                layerInfo.setMorphologicalAnalysis(self.getMorphologicalParseAt(i))
+                layer_info.setMorphologicalAnalysis(self.getMorphologicalParseAt(i))
             if self.layerExists(ViewLayerType.META_MORPHEME):
-                layerInfo.setMetaMorphemes(self.getMetamorphicParseAt(i))
+                layer_info.setMetaMorphemes(self.getMetamorphicParseAt(i))
             if self.layerExists(ViewLayerType.ENGLISH_PROPBANK):
-                layerInfo.setLayerData(ViewLayerType.ENGLISH_PROPBANK, self.getLayerData(ViewLayerType.ENGLISH_PROPBANK))
+                layer_info.setLayerData(ViewLayerType.ENGLISH_PROPBANK, self.getLayerData(ViewLayerType.ENGLISH_PROPBANK))
             if self.layerExists(ViewLayerType.ENGLISH_SEMANTICS):
-                layerInfo.setLayerData(ViewLayerType.ENGLISH_SEMANTICS, self.getLayerData(ViewLayerType.ENGLISH_SEMANTICS))
+                layer_info.setLayerData(ViewLayerType.ENGLISH_SEMANTICS, self.getLayerData(ViewLayerType.ENGLISH_SEMANTICS))
             if self.layerExists(ViewLayerType.NER):
-                layerInfo.setLayerData(ViewLayerType.NER, self.getLayerData(ViewLayerType.NER))
+                layer_info.setLayerData(ViewLayerType.NER, self.getLayerData(ViewLayerType.NER))
             if self.layerExists(ViewLayerType.SEMANTICS):
-                layerInfo.setLayerData(ViewLayerType.SEMANTICS, self.getSemanticAt(i))
+                layer_info.setLayerData(ViewLayerType.SEMANTICS, self.getSemanticAt(i))
             if self.layerExists(ViewLayerType.PROPBANK):
-                layerInfo.setLayerData(ViewLayerType.PROPBANK, self.getArgument().__str__())
+                layer_info.setLayerData(ViewLayerType.PROPBANK, self.getArgument().__str__())
             if self.layerExists(ViewLayerType.SHALLOW_PARSE):
-                layerInfo.setLayerData(ViewLayerType.SHALLOW_PARSE, self.getShallowParseAt(i))
-            result.append(layerInfo)
+                layer_info.setLayerData(ViewLayerType.SHALLOW_PARSE, self.getShallowParseAt(i))
+            result.append(layer_info)
         return result
 
     def toAnnotatedWord(self, wordIndex: int) -> AnnotatedWord:
-        annotatedWord = AnnotatedWord(self.getTurkishWordAt(wordIndex))
+        annotated_word = AnnotatedWord(self.getTurkishWordAt(wordIndex))
         if self.layerExists(ViewLayerType.INFLECTIONAL_GROUP):
-            annotatedWord.setParse(self.getMorphologicalParseAt(wordIndex).__str__())
+            annotated_word.setParse(self.getMorphologicalParseAt(wordIndex).__str__())
         if self.layerExists(ViewLayerType.META_MORPHEME):
-            annotatedWord.setMetamorphicParse(self.getMetamorphicParseAt(wordIndex).__str__())
+            annotated_word.setMetamorphicParse(self.getMetamorphicParseAt(wordIndex).__str__())
         if self.layerExists(ViewLayerType.SEMANTICS):
-            annotatedWord.setSemantic(self.getSemanticAt(wordIndex))
+            annotated_word.setSemantic(self.getSemanticAt(wordIndex))
         if self.layerExists(ViewLayerType.NER):
-            annotatedWord.setNamedEntityType(self.getLayerData(ViewLayerType.NER))
+            annotated_word.setNamedEntityType(self.getLayerData(ViewLayerType.NER))
         if self.layerExists(ViewLayerType.PROPBANK):
-            annotatedWord.setArgument(self.getArgument().__str__())
+            annotated_word.setArgument(self.getArgument().__str__())
         if self.layerExists(ViewLayerType.SHALLOW_PARSE):
-            annotatedWord.setShallowParse(self.getShallowParseAt(wordIndex))
-        return annotatedWord
+            annotated_word.setShallowParse(self.getShallowParseAt(wordIndex))
+        return annotated_word

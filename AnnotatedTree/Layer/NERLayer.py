@@ -5,15 +5,15 @@ from AnnotatedTree.Layer.SingleWordLayer import SingleWordLayer
 
 class NERLayer(SingleWordLayer):
 
-    __namedEntity: NamedEntityType
+    __named_entity: NamedEntityType
 
     def __init__(self, layerValue: str):
-        self.layerName = "namedEntity"
+        self.layer_name = "namedEntity"
         self.setLayerValue(layerValue)
 
     def setLayerValue(self, layerValue: str):
-        self.layerValue = layerValue
-        self.__namedEntity = NamedEntityType.getNamedEntityType(layerValue)
+        self.layer_value = layerValue
+        self.__named_entity = NamedEntityType.getNamedEntityType(layerValue)
 
     def getLayerValue(self) -> str:
-        return NamedEntityType.getNamedEntityString(self.__namedEntity)
+        return NamedEntityType.getNamedEntityString(self.__named_entity)

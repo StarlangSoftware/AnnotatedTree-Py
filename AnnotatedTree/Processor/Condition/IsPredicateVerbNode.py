@@ -10,6 +10,6 @@ class IsPredicateVerbNode(IsVerbNode):
         super().__init__(wordNet)
 
     def satisfies(self, parseNode: ParseNodeDrawable) -> bool:
-        layerInfo = parseNode.getLayerInfo()
-        return super().satisfies(parseNode) and layerInfo is not None and layerInfo.getArgument() is not None \
-               and layerInfo.getArgument().getArgumentType() == "PREDICATE"
+        layer_info = parseNode.getLayerInfo()
+        return super().satisfies(parseNode) and layer_info is not None and layer_info.getArgument() is not None \
+               and layer_info.getArgument().getArgumentType() == "PREDICATE"

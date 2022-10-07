@@ -6,6 +6,6 @@ class IsProperNoun(IsLeafNode):
 
     def satisfies(self, parseNode: ParseNodeDrawable) -> bool:
         if super().satisfies(parseNode):
-            parentData = parseNode.getParent().getData().getName()
-            return parentData == "NNP" or parentData == "NNPS"
+            parent_data = parseNode.getParent().getData().getName()
+            return parent_data == "NNP" or parent_data == "NNPS"
         return False

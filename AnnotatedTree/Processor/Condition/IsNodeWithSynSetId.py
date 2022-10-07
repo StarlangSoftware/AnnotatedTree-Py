@@ -11,9 +11,9 @@ class IsNodeWithSynSetId(IsLeafNode):
 
     def satisfies(self, parseNode: ParseNodeDrawable) -> bool:
         if super().satisfies(parseNode):
-            layerInfo = parseNode.getLayerInfo()
-            for i in range(layerInfo.getNumberOfMeanings()):
-                synSetId = layerInfo.getSemanticAt(i)
-                if synSetId == self.__id:
+            layer_info = parseNode.getLayerInfo()
+            for i in range(layer_info.getNumberOfMeanings()):
+                syn_set_id = layer_info.getSemanticAt(i)
+                if syn_set_id == self.__id:
                     return True
         return False

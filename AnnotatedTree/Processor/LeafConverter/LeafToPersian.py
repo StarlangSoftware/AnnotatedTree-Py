@@ -6,4 +6,4 @@ from AnnotatedTree.Processor.LeafConverter.LeafToLanguageConverter import LeafTo
 class LeafToPersian(LeafToLanguageConverter):
 
     def __init__(self):
-        self.viewLayerType = ViewLayerType.PERSIAN_WORD
+        self.view_layer_type = ViewLayerType.PERSIAN_WORD

@@ -8,14 +8,14 @@ from AnnotatedTree.Processor.Condition.IsNullElement import IsNullElement
 
 class IsTransferable(IsLeafNode):
 
-    __secondLanguage: ViewLayerType
+    __second_language: ViewLayerType
 
     def __init__(self, secondLanguage: ViewLayerType):
-        self.__secondLanguage = secondLanguage
+        self.__second_language = secondLanguage
 
     def satisfies(self, parseNode: ParseNodeDrawable) -> bool:
         if super().satisfies(parseNode):
-            if IsNoneNode(self.__secondLanguage).satisfies(parseNode):
+            if IsNoneNode(self.__second_language).satisfies(parseNode):
                 return False
             return not IsNullElement().satisfies(parseNode)
         return False

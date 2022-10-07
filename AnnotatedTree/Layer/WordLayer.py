@@ -1,13 +1,13 @@
 class WordLayer:
 
-    layerValue: str
-    layerName: str
+    layer_value: str
+    layer_name: str
 
     def getLayerValue(self) -> str:
-        return self.layerValue
+        return self.layer_value
 
     def getLayerName(self) -> str:
-        return self.layerName
+        return self.layer_name
 
     def getLayerDescription(self) -> str:
-        return "{" + self.layerName + "=" + self.layerValue + "}"
+        return "{" + self.layer_name + "=" + self.layer_value + "}"

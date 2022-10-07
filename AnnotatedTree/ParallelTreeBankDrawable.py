@@ -5,19 +5,22 @@ from ParseTree.ParallelTreeBank import ParallelTreeBank
 
 class ParallelTreeBankDrawable(ParallelTreeBank):
 
-    def __init__(self, folder1: str, folder2: str, pattern: str = None):
-        self.fromTreeBank = TreeBankDrawable(folder1, pattern)
-        self.toTreeBank = TreeBankDrawable(folder2, pattern)
+    def __init__(self,
+                 folder1: str,
+                 folder2: str,
+                 pattern: str = None):
+        self.from_tree_bank = TreeBankDrawable(folder1, pattern)
+        self.to_tree_bank = TreeBankDrawable(folder2, pattern)
         self.removeDifferentTrees()
 
     def fromTree(self, index: int) -> ParseTreeDrawable:
-        return self.fromTreeBank.get(index)
+        return self.from_tree_bank.get(index)
 
     def toTree(self, index: int) -> ParseTreeDrawable:
-        return self.toTreeBank.get(index)
+        return self.to_tree_bank.get(index)
 
     def fromTreeBank(self) -> TreeBankDrawable:
-        return self.fromTreeBank
+        return self.from_tree_bank
 
     def toTreeBank(self) -> TreeBankDrawable:
-        return self.toTreeBank
+        return self.to_tree_bank

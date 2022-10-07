@@ -13,14 +13,18 @@ class ParseNodeDrawable(ParseNode):
     layers: LayerInfo
     depth: int
 
-    def __init__(self, parent: ParseNodeDrawable, line: str, isLeaf: bool, depth: int):
+    def __init__(self,
+                 parent: ParseNodeDrawable,
+                 line: str,
+                 isLeaf: bool,
+                 depth: int):
         self.children = []
         self.parent = parent
         self.layers = None
         self.data = None
         self.depth = depth
-        parenthesisCount = 0
-        childLine = ""
+        parenthesis_count = 0
+        child_line = ""
         if isLeaf:
             if "{" not in line:
                 self.data = Symbol(line)
@@ -33,15 +37,15 @@ class ParseNodeDrawable(ParseNode):
                                                        True, depth + 1))
             else:
                 for i in range(line.index(" ") + 1, len(line)):
-                    if line[i] != " " or parenthesisCount > 0:
-                        childLine = childLine + line[i]
+                    if line[i] != " " or parenthesis_count > 0:
+                        child_line = child_line + line[i]
                     if line[i] == "(":
-                        parenthesisCount = parenthesisCount + 1
+                        parenthesis_count = parenthesis_count + 1
                     elif line[i] == ")":
-                        parenthesisCount = parenthesisCount - 1
-                    if parenthesisCount == 0 and len(childLine) != 0:
-                        self.children.append(ParseNodeDrawable(self, childLine.strip(), False, depth + 1))
-                        childLine = ""
+                        parenthesis_count = parenthesis_count - 1
+                    if parenthesis_count == 0 and len(child_line) != 0:
+                        self.children.append(ParseNodeDrawable(self, child_line.strip(), False, depth + 1))
+                        child_line = ""
 
     def getLayerInfo(self) -> LayerInfo:
         return self.layers
@@ -131,14 +135,14 @@ class ParseNodeDrawable(ParseNode):
     def isDummyNode(self) -> bool:
         data = self.getLayerData(ViewLayerType.ENGLISH_WORD)
         if isinstance(self.parent, ParseNodeDrawable):
-            parentData = self.parent.getLayerData(ViewLayerType.ENGLISH_WORD)
+            parent_data = self.parent.getLayerData(ViewLayerType.ENGLISH_WORD)
         else:
-            parentData = None
-        targetData = self.getLayerData(ViewLayerType.TURKISH_WORD)
-        if data is not None and parentData is not None:
-            if targetData is not None and "*" in targetData:
+            parent_data = None
+        target_data = self.getLayerData(ViewLayerType.TURKISH_WORD)
+        if data is not None and parent_data is not None:
+            if target_data is not None and "*" in target_data:
                 return True
-            return "*" in data or (data == "0" and parentData == "-NONE-")
+            return "*" in data or (data == "0" and parent_data == "-NONE-")
         else:
             return False
 
@@ -169,13 +173,17 @@ class ParseNodeDrawable(ParseNode):
                     st += child.toSentence()
             return st
 
-    def checkGazetteer(self, gazetteer: Gazetteer, word: str):
+    def checkGazetteer(self,
+                       gazetteer: Gazetteer,
+                       word: str):
         if gazetteer.contains(word) and self.getParent().getData().getName() == "NNP":
             self.getLayerInfo().setLayerData(ViewLayerType.NER, gazetteer.getName())
         if "'" in word and gazetteer.contains(word[:word.index("'")]) and self.getParent().getData().getName() == "NNP":
             self.getLayerInfo().setLayerData(ViewLayerType.NER, gazetteer.getName())
 
-    def generateParseNode(self, parseNode: ParseNode, surfaceForm: bool):
+    def generateParseNode(self,
+                          parseNode: ParseNode,
+                          surfaceForm: bool):
         if len(self.children) == 0:
             if surfaceForm:
                 parseNode.setData(Symbol(self.getLayerData(ViewLayerType.TURKISH_WORD)))
@@ -184,9 +192,9 @@ class ParseNodeDrawable(ParseNode):
         else:
             parseNode.setData(self.data)
             for child in self.children:
-                newChild = ParseNode("")
-                parseNode.addChild(newChild)
-                child.generateParseNode(newChild, surfaceForm)
+                new_child = ParseNode("")
+                parseNode.addChild(new_child)
+                child.generateParseNode(new_child, surfaceForm)
 
     def __str__(self) -> str:
         if len(self.children) < 2:

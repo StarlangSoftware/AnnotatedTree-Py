@@ -7,20 +7,20 @@ from AnnotatedTree.Layer.MultiWordMultiItemLayer import MultiWordMultiItemLayer
 class MorphologicalAnalysisLayer(MultiWordMultiItemLayer):
 
     def __init__(self, layerValue: str):
-        self.layerName = "morphologicalAnalysis"
+        self.layer_name = "morphologicalAnalysis"
         self.setLayerValue(layerValue)
 
     def setLayerValue(self, layerValue: str):
         self.items = []
         if isinstance(layerValue, str):
-            self.layerValue = layerValue
+            self.layer_value = layerValue
             if layerValue is not None:
-                splitWords = self.layerValue.split(" ")
-                for word in splitWords:
+                split_words = self.layer_value.split(" ")
+                for word in split_words:
                     self.items.append(MorphologicalParse(word))
         elif isinstance(layerValue, MorphologicalParse):
             parse = layerValue
-            self.layerValue = parse.getTransitionList()
+            self.layer_value = parse.getTransitionList()
             self.items.append(parse)
 
     def getLayerSize(self, viewLayer: ViewLayerType) -> int:

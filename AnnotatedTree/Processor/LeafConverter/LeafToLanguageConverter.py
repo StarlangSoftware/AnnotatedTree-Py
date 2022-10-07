@@ -5,16 +5,16 @@ from AnnotatedTree.Processor.LeafConverter.LeafToStringConverter import LeafToSt
 
 class LeafToLanguageConverter(LeafToStringConverter):
 
-    viewLayerType: ViewLayerType
+    view_layer_type: ViewLayerType
 
     def leafConverter(self, leafNode: ParseNodeDrawable) -> str:
-        layerData = leafNode.getLayerData(self.viewLayerType)
-        parentLayerData = leafNode.getParent().getLayerData(self.viewLayerType)
-        if layerData is not None:
-            if "*" in layerData or (layerData == "0" and parentLayerData == "-NONE-"):
+        layer_data = leafNode.getLayerData(self.view_layer_type)
+        parent_layer_data = leafNode.getParent().getLayerData(self.view_layer_type)
+        if layer_data is not None:
+            if "*" in layer_data or (layer_data == "0" and parent_layer_data == "-NONE-"):
                 return ""
             else:
-                return " " + layerData.replace("-LRB-", "(").replace("-RRB-", ")").replace("-LSB-", "[").\
+                return " " + layer_data.replace("-LRB-", "(").replace("-RRB-", ")").replace("-LSB-", "[").\
                     replace("-RSB-", "]").replace("-LCB-", "{").replace("-RCB-", "}").replace("-lrb-", "(").\
                     replace("-rrb-", ")").replace("-lsb-", "[").replace("-rsb-", "]").replace("-lcb", "{").\
                     replace("-rcb-", "}")

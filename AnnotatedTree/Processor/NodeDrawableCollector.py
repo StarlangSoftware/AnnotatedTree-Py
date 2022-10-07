@@ -5,10 +5,10 @@ from AnnotatedTree.Processor.Condition.NodeDrawableCondition import NodeDrawable
 class NodeDrawableCollector:
 
     __condition: NodeDrawableCondition
-    __rootNode: ParseNodeDrawable
+    __root_node: ParseNodeDrawable
 
     def __init__(self, rootNode: ParseNodeDrawable, condition: NodeDrawableCondition):
-        self.__rootNode = rootNode
+        self.__root_node = rootNode
         self.__condition = condition
 
     def collectNodes(self, parseNode: ParseNodeDrawable, collected: list):
@@ -19,5 +19,5 @@ class NodeDrawableCollector:
 
     def collect(self) -> list:
         result = []
-        self.collectNodes(self.__rootNode, result)
+        self.collectNodes(self.__root_node, result)
         return result

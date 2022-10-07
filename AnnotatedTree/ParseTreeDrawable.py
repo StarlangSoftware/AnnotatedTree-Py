@@ -18,60 +18,62 @@ from AnnotatedTree.Processor.NodeDrawableCollector import NodeDrawableCollector
 
 class ParseTreeDrawable(ParseTree):
 
-    __fileDescription: FileDescription
+    __file_description: FileDescription
 
-    def __init__(self, fileDescription, path: str=None):
+    def __init__(self,
+                 fileDescription,
+                 path: str=None):
         if path is None:
             if isinstance(fileDescription, FileDescription):
-                self.__fileDescription = fileDescription
+                self.__file_description = fileDescription
                 self.name = fileDescription.getRawFileName()
-                self.readFromFile(self.__fileDescription.getFileName(fileDescription.getPath()))
+                self.readFromFile(self.__file_description.getFileName(fileDescription.getPath()))
             elif isinstance(fileDescription, str):
                 self.name = os.path.split(fileDescription)[1]
                 self.readFromFile(fileDescription)
         else:
-            self.__fileDescription = FileDescription(path, fileDescription.getExtension(), fileDescription.getIndex())
-            self.name = self.__fileDescription.getRawFileName()
-            self.readFromFile(self.__fileDescription.getFileName(fileDescription.getPath()))
+            self.__file_description = FileDescription(path, fileDescription.getExtension(), fileDescription.getIndex())
+            self.name = self.__file_description.getRawFileName()
+            self.readFromFile(self.__file_description.getFileName(fileDescription.getPath()))
 
     def setFileDescription(self, fileDescription: FileDescription):
-        self.__fileDescription = fileDescription
+        self.__file_description = fileDescription
 
     def getFileDescription(self) -> FileDescription:
-        return self.__fileDescription
+        return self.__file_description
 
     def reload(self):
-        self.readFromFile(self.__fileDescription.getFileName(self.__fileDescription.getPath()))
+        self.readFromFile(self.__file_description.getFileName(self.__file_description.getPath()))
 
     def readFromFile(self, fileName: str):
-        inputFile = open(fileName, encoding="utf8")
-        line = inputFile.readline().strip()
+        input_file = open(fileName, encoding="utf8")
+        line = input_file.readline().strip()
         if "(" in line and ")" in line:
             line = line[line.index("(") + 1:line.rindex(")")].strip()
             self.root = ParseNodeDrawable(None, line, False, 0)
         else:
             self.root = None
-        inputFile.close()
+        input_file.close()
 
     def nextTree(self, count: int):
-        if self.__fileDescription.nextFileExists(count):
-            self.__fileDescription.addToIndex(count)
+        if self.__file_description.nextFileExists(count):
+            self.__file_description.addToIndex(count)
             self.reload()
 
     def previousTree(self, count: int):
-        if self.__fileDescription.previousFileExists(count):
-            self.__fileDescription.addToIndex(-count)
+        if self.__file_description.previousFileExists(count):
+            self.__file_description.addToIndex(-count)
             self.reload()
 
     def save(self):
-        outputFile = open(self.__fileDescription.getFileName(), mode='w', encoding="utf8")
-        outputFile.write("( " + self.__str__() + " )\n")
-        outputFile.close()
+        output_file = open(self.__file_description.getFileName(), mode='w', encoding="utf8")
+        output_file.write("( " + self.__str__() + " )\n")
+        output_file.close()
 
     def saveWithPath(self, newPath: str):
-        outputFile = open(self.__fileDescription.getFileName(newPath), mode='w', encoding="utf8")
-        outputFile.write("( " + self.__str__() + " )\n")
-        outputFile.close()
+        output_file = open(self.__file_description.getFileName(newPath), mode='w', encoding="utf8")
+        output_file.write("( " + self.__str__() + " )\n")
+        output_file.close()
 
     def maxDepth(self) -> int:
         if isinstance(self.root, ParseNodeDrawable):
@@ -104,20 +106,20 @@ class ParseTreeDrawable(ParseTree):
     def generateAnnotatedSentence(self, language: str=None) -> AnnotatedSentence:
         sentence = AnnotatedSentence()
         if language is None:
-            nodeDrawableCollector = NodeDrawableCollector(self.root, IsTurkishLeafNode())
-            leafList = nodeDrawableCollector.collect()
-            for parseNode in leafList:
-                if isinstance(parseNode, ParseNodeDrawable):
-                    layers = parseNode.getLayerInfo()
+            node_drawable_collector = NodeDrawableCollector(self.root, IsTurkishLeafNode())
+            leaf_list = node_drawable_collector.collect()
+            for parse_node in leaf_list:
+                if isinstance(parse_node, ParseNodeDrawable):
+                    layers = parse_node.getLayerInfo()
                     for i in range(layers.getNumberOfWords()):
                         sentence.addWord(layers.toAnnotatedWord(i))
         else:
-            nodeDrawableCollector = NodeDrawableCollector(self.root, IsEnglishLeafNode())
-            leafList = nodeDrawableCollector.collect()
-            for parseNode in leafList:
-                if isinstance(parseNode, ParseNodeDrawable):
-                    newWord = AnnotatedWord("{" + language + "=" + parseNode.getData().getName() + "}{posTag="
-                                            + parseNode.getParent().getData().getName() + "}")
+            node_drawable_collector = NodeDrawableCollector(self.root, IsEnglishLeafNode())
+            leaf_list = node_drawable_collector.collect()
+            for parse_node in leaf_list:
+                if isinstance(parse_node, ParseNodeDrawable):
+                    newWord = AnnotatedWord("{" + language + "=" + parse_node.getData().getName() + "}{posTag="
+                                            + parse_node.getParent().getData().getName() + "}")
                     sentence.addWord(newWord)
         return sentence
 
@@ -127,9 +129,9 @@ class ParseTreeDrawable(ParseTree):
         return result
 
     def extractNodesWithVerbs(self, wordNet: WordNet) -> list:
-        nodeDrawableCollector = NodeDrawableCollector(self.root, IsVerbNode(wordNet))
-        return nodeDrawableCollector.collect()
+        node_drawable_collector = NodeDrawableCollector(self.root, IsVerbNode(wordNet))
+        return node_drawable_collector.collect()
 
     def extractNodesWithPredicateVerbs(self, wordNet: WordNet) -> list:
-        nodeDrawableCollector = NodeDrawableCollector(self.root, IsPredicateVerbNode(wordNet))
-        return nodeDrawableCollector.collect()
+        node_drawable_collector = NodeDrawableCollector(self.root, IsPredicateVerbNode(wordNet))
+        return node_drawable_collector.collect()

@@ -10,13 +10,15 @@ class TargetLanguageWordLayer(MultiWordLayer):
 
     def setLayerValue(self, layerValue: str):
         self.items = []
-        self.layerValue = layerValue
+        self.layer_value = layerValue
         if layerValue is not None:
-            splitWords = layerValue.split(" ")
-            self.items.extend(splitWords)
+            split_words = layerValue.split(" ")
+            self.items.extend(split_words)
 
     def getLayerSize(self, viewLayer: ViewLayerType) -> int:
         return 0
 
-    def getLayerInfoAt(self, viewLayer: ViewLayerType, index: int) -> str:
+    def getLayerInfoAt(self,
+                       viewLayer: ViewLayerType,
+                       index: int) -> str:
         return None

@@ -8,18 +8,18 @@ from AnnotatedTree.Processor.Condition.IsLeafNode import IsLeafNode
 
 class IsVerbNode(IsLeafNode):
 
-    __wordNet: WordNet
+    __word_net: WordNet
 
     def __init__(self, wordNet: WordNet):
-        self.__wordNet = wordNet
+        self.__word_net = wordNet
 
     def satisfies(self, parseNode: ParseNodeDrawable) -> bool:
-        layerInfo = parseNode.getLayerInfo()
-        if super().satisfies(parseNode) and layerInfo is not None and \
-            layerInfo.getLayerData(ViewLayerType.SEMANTICS) is not None:
-            for i in range(layerInfo.getNumberOfMeanings()):
-                synSetId = layerInfo.getSemanticAt(i)
-                if self.__wordNet.getSynSetWithId(synSetId) is not None and \
-                        self.__wordNet.getSynSetWithId(synSetId).getPos() == Pos.VERB:
+        layer_info = parseNode.getLayerInfo()
+        if super().satisfies(parseNode) and layer_info is not None and \
+            layer_info.getLayerData(ViewLayerType.SEMANTICS) is not None:
+            for i in range(layer_info.getNumberOfMeanings()):
+                syn_set_id = layer_info.getSemanticAt(i)
+                if self.__word_net.getSynSetWithId(syn_set_id) is not None and \
+                        self.__word_net.getSynSetWithId(syn_set_id).getPos() == Pos.VERB:
                     return True
         return False

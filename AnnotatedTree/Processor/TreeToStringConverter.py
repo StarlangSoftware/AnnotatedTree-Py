@@ -6,11 +6,11 @@ from AnnotatedTree.Processor.LeafConverter.LeafToStringConverter import LeafToSt
 class TreeToStringConverter:
 
     __converter: LeafToStringConverter
-    __parseTree: ParseTreeDrawable
+    __parse_tree: ParseTreeDrawable
 
     def __init__(self, parseTree: ParseTreeDrawable, converter: LeafToStringConverter):
         self.__converter = converter
-        self.__parseTree = parseTree
+        self.__parse_tree = parseTree
 
     def convertToString(self, parseNode: ParseNodeDrawable):
         if parseNode.isLeaf():
@@ -22,4 +22,4 @@ class TreeToStringConverter:
             return st
 
     def convert(self) -> str:
-        return self.convertToString(self.__parseTree.getRoot())
+        return self.convertToString(self.__parse_tree.getRoot())

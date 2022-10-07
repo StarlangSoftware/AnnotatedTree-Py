@@ -6,4 +6,4 @@ from AnnotatedTree.Processor.LeafConverter.LeafToLanguageConverter import LeafTo
 class LeafToTurkish(LeafToLanguageConverter):
 
     def __init__(self):
-        self.viewLayerType = ViewLayerType.TURKISH_WORD
+        self.view_layer_type = ViewLayerType.TURKISH_WORD

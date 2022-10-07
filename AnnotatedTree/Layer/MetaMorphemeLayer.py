@@ -8,16 +8,16 @@ class MetaMorphemeLayer(MetaMorphemesMovedLayer):
 
     def __init__(self, layerValue: str):
         super().__init__(layerValue)
-        self.layerName = "metaMorphemes"
+        self.layer_name = "metaMorphemes"
 
     def setLayerValueWithMetamorphicParse(self, layerValue: MetamorphicParse):
         if isinstance(layerValue, MetamorphicParse):
             parse = layerValue
-            self.layerValue = parse.__str__()
+            self.layer_value = parse.__str__()
             self.items = []
             if layerValue is not None:
-                splitWords = self.layerValue.split(" ")
-                for word in splitWords:
+                split_words = self.layerValue.split(" ")
+                for word in split_words:
                     self.items.append(MetamorphicParse(word))
 
     def getLayerInfoFrom(self, index: int) -> str:

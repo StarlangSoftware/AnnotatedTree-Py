@@ -7,23 +7,23 @@ from AnnotatedTree.Processor.LayerExist.LeafListCondition import LeafListConditi
 
 class NotContainsLayerInformation(LeafListCondition):
 
-    __viewLayerType: ViewLayerType
+    __view_layer_type: ViewLayerType
 
     def __init__(self, viewLayerType: ViewLayerType):
-        self.__viewLayerType = viewLayerType
+        self.__view_layer_type = viewLayerType
 
     def satisfies(self, leafList: list) -> bool:
-        for parseNode in leafList:
-            if isinstance(parseNode, ParseNodeDrawable) and "*" \
-                    not in parseNode.getLayerData(ViewLayerType.ENGLISH_WORD):
-                if self.__viewLayerType == ViewLayerType.TURKISH_WORD:
-                    if parseNode.getLayerData(self.__viewLayerType) is not None:
+        for parse_node in leafList:
+            if isinstance(parse_node, ParseNodeDrawable) and "*" \
+                    not in parse_node.getLayerData(ViewLayerType.ENGLISH_WORD):
+                if self.__view_layer_type == ViewLayerType.TURKISH_WORD:
+                    if parse_node.getLayerData(self.__view_layer_type) is not None:
                         return False
-                elif self.__viewLayerType == ViewLayerType.PART_OF_SPEECH or \
-                        self.__viewLayerType == ViewLayerType.INFLECTIONAL_GROUP or \
-                        self.__viewLayerType == ViewLayerType.NER or self.__viewLayerType == ViewLayerType.SEMANTICS or\
-                        self.__viewLayerType == ViewLayerType.PROPBANK:
-                    if parseNode.getLayerData(self.__viewLayerType) is not None and \
-                            IsTurkishLeafNode().satisfies(parseNode):
+                elif self.__view_layer_type == ViewLayerType.PART_OF_SPEECH or \
+                        self.__view_layer_type == ViewLayerType.INFLECTIONAL_GROUP or \
+                        self.__view_layer_type == ViewLayerType.NER or self.__view_layer_type == ViewLayerType.SEMANTICS or\
+                        self.__view_layer_type == ViewLayerType.PROPBANK:
+                    if parse_node.getLayerData(self.__view_layer_type) is not None and \
+                            IsTurkishLeafNode().satisfies(parse_node):
                         return False
         return True

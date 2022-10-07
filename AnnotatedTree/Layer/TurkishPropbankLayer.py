@@ -8,11 +8,11 @@ class TurkishPropbankLayer(SingleWordLayer):
     __propbank: Argument
 
     def __init__(self, layerValue: str):
-        self.layerName = "propbank"
+        self.layer_name = "propbank"
         self.setLayerValue(layerValue)
 
     def setLayerValue(self, layerValue: str):
-        self.layerValue = layerValue
+        self.layer_value = layerValue
         self.__propbank = Argument(layerValue)
 
     def getArgument(self) -> Argument:
