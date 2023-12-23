@@ -27,7 +27,7 @@ Video Lectures
 For Developers
 ============
 
-You can also see [Cython](https://github.com/starlangsoftware/AnnotatedTree-Cy), [Java](https://github.com/starlangsoftware/AnnotatedTree), [C++](https://github.com/starlangsoftware/AnnotatedTree-CPP), [Js](https://github.com/starlangsoftware/AnnotatedTree-Js), [Swift](https://github.com/starlangsoftware/AnnotatedTree-Swift), or [C#](https://github.com/starlangsoftware/AnnotatedTree-CS) repository.
+You can also see [Cython](https://github.com/starlangsoftware/AnnotatedTree-Cy), [Java](https://github.com/starlangsoftware/AnnotatedTree), [C++](https://github.com/starlangsoftware/AnnotatedTree-CPP), [C](https://github.com/starlangsoftware/AnnotatedTree-C), [Js](https://github.com/starlangsoftware/AnnotatedTree-Js), [Swift](https://github.com/starlangsoftware/AnnotatedTree-Swift), or [C#](https://github.com/starlangsoftware/AnnotatedTree-CS) repository.
 
 ## Requirements
 
