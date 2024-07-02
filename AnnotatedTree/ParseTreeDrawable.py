@@ -17,12 +17,17 @@ from AnnotatedTree.Processor.NodeDrawableCollector import NodeDrawableCollector
 
 
 class ParseTreeDrawable(ParseTree):
-
     __file_description: FileDescription
 
     def __init__(self,
                  fileDescription,
-                 path: str=None):
+                 path: str = None):
+        """
+        Another constructor for the ParseTreeDrawable. Sets the file description and reads the tree from the file
+        description.
+        :param fileDescription: File description that contains the path, index and extension information.
+        :param path: Path of the tree
+        """
         if path is None:
             if isinstance(fileDescription, FileDescription):
                 self.__file_description = fileDescription
@@ -37,15 +42,31 @@ class ParseTreeDrawable(ParseTree):
             self.readFromFile(self.__file_description.getFileName(fileDescription.getPath()))
 
     def setFileDescription(self, fileDescription: FileDescription):
+        """
+        Mutator method for the fileDescription attribute.
+        :param fileDescription: New fileDescription value.
+        """
         self.__file_description = fileDescription
 
     def getFileDescription(self) -> FileDescription:
+        """
+        Accessor method for the fileDescription attribute.
+        :return: FileDescription attribute.
+        """
         return self.__file_description
 
     def reload(self):
+        """
+        Reloads the tree from the input file.
+        """
         self.readFromFile(self.__file_description.getFileName(self.__file_description.getPath()))
 
     def readFromFile(self, fileName: str):
+        """
+        Reads the parse tree from the given line. It sets the root node which calls ParseNodeDrawable constructor
+        recursively.
+        :param fileName: Name of the file containing the definition of the tree.
+        """
         input_file = open(fileName, encoding="utf8")
         line = input_file.readline().strip()
         if "(" in line and ")" in line:
@@ -56,26 +77,49 @@ class ParseTreeDrawable(ParseTree):
         input_file.close()
 
     def nextTree(self, count: int):
+        """
+        Loads the next tree according to the index of the parse tree. For example, if the current
+        tree fileName is 0123.train, after the call of nextTree(3), the method will load 0126.train. If the next tree
+        does not exist, nothing will happen.
+        :param count: Number of trees to go forward
+        """
         if self.__file_description.nextFileExists(count):
             self.__file_description.addToIndex(count)
             self.reload()
 
     def previousTree(self, count: int):
+        """
+        Loads the previous tree according to the index of the parse tree. For example, if the current
+        tree fileName is 0123.train, after the call of previousTree(4), the method will load 0119.train. If the
+        previous tree does not exist, nothing will happen.
+        :param count: Number of trees to go backward
+        """
         if self.__file_description.previousFileExists(count):
             self.__file_description.addToIndex(-count)
             self.reload()
 
     def save(self):
+        """
+        Saves current tree.
+        """
         output_file = open(self.__file_description.getFileName(), mode='w', encoding="utf8")
         output_file.write("( " + self.__str__() + " )\n")
         output_file.close()
 
     def saveWithPath(self, newPath: str):
+        """
+        Saves current tree to the newPath with other file properties staying the same.
+        :param newPath: Path to which tree will be saved
+        """
         output_file = open(self.__file_description.getFileName(newPath), mode='w', encoding="utf8")
         output_file.write("( " + self.__str__() + " )\n")
         output_file.close()
 
     def maxDepth(self) -> int:
+        """
+        Calculates the maximum depth of the tree.
+        :return: The maximum depth of the tree.
+        """
         if isinstance(self.root, ParseNodeDrawable):
             return self.root.maxDepth()
 
@@ -88,22 +132,43 @@ class ParseTreeDrawable(ParseTree):
             self.root.moveRight(node)
 
     def layerExists(self, viewLayerType: ViewLayerType) -> bool:
+        """
+        The method checks if all nodes in the tree has the annotation in the given layer.
+        :param viewLayerType: Layer name
+        :return: True if all nodes in the tree has the annotation in the given layer, false otherwise.
+        """
         if self.root is not None and isinstance(self.root, ParseNodeDrawable):
             return self.root.layerExists(viewLayerType)
         else:
             return False
 
     def layerAll(self, viewLayerType: ViewLayerType) -> bool:
+        """
+        Checks if all nodes in the tree has annotation with the given layer.
+        :param viewLayerType: Layer name
+        :return: True if all nodes in the tree has annotation with the given layer, false otherwise.
+        """
         if self.root is not None and isinstance(self.root, ParseNodeDrawable):
             return self.root.layerAll(viewLayerType)
         else:
             return False
 
     def clearLayer(self, viewLayerType: ViewLayerType):
+        """
+        Clears the given layer for all nodes in the tree
+        :param viewLayerType: Layer name
+        """
         if self.root is not None and isinstance(self.root, ParseNodeDrawable):
             self.root.clearLayer(viewLayerType)
 
-    def generateAnnotatedSentence(self, language: str=None) -> AnnotatedSentence:
+    def generateAnnotatedSentence(self, language: str = None) -> AnnotatedSentence:
+        """
+        Constructs an AnnotatedSentence object from the Turkish tree. Collects all leaf nodes, then for each leaf node
+        converts layer info of all words at that node to AnnotatedWords. Layers are converted to the counterparts in the
+        AnnotatedWord.
+        :param language: Language of the parse tree.
+        :return: AnnotatedSentence counterpart of the English / Persian tree
+        """
         sentence = AnnotatedSentence()
         if language is None:
             node_drawable_collector = NodeDrawableCollector(self.root, IsTurkishLeafNode())
@@ -124,6 +189,15 @@ class ParseTreeDrawable(ParseTree):
         return sentence
 
     def generateParseTree(self, surfaceForm: bool) -> ParseTree:
+        """
+        Recursive method that generates a new parse tree by replacing the tag information of the all parse nodes (with all
+        its descendants) with respect to the morphological annotation of all parse nodes (with all its descendants)
+        of the current parse tree.
+        :param surfaceForm: If true, tag will be replaced with the surface form annotation.
+        :return: A new parse tree generated by replacing the tag information of the all parse nodes (with all
+        its descendants) with respect to the morphological annotation of all parse nodes (with all its descendants)
+        of the current parse tree.
+        """
         result = ParseTree(ParseNode(self.root.getData()))
         self.root.generateParseNode(result.getRoot(), surfaceForm)
         return result

@@ -10,9 +10,18 @@ class NotContainsLayerInformation(LeafListCondition):
     __view_layer_type: ViewLayerType
 
     def __init__(self, viewLayerType: ViewLayerType):
+        """
+        Constructor for NotContainsLayerInformation class. Sets the viewLayerType attribute.
+        :param viewLayerType: Layer for which check is done.
+        """
         self.__view_layer_type = viewLayerType
 
     def satisfies(self, leafList: list) -> bool:
+        """
+        Checks if none of the leaf nodes in the leafList contains the given layer information.
+        :param leafList: Array list storing the leaf nodes.
+        :return: True if none of the leaf nodes in the leafList contains the given layer information, false otherwise.
+        """
         for parse_node in leafList:
             if isinstance(parse_node, ParseNodeDrawable) and "*" \
                     not in parse_node.getLayerData(ViewLayerType.ENGLISH_WORD):

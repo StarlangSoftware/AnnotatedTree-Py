@@ -12,6 +12,11 @@ class IsNoneNode(IsLeafNode):
         self.__second_language = secondLanguage
 
     def satisfies(self, parseNode: ParseNodeDrawable) -> bool:
+        """
+        Checks if the data of the parse node is '*NONE*'.
+        :param parseNode: Parse node to check.
+        :return: True if the data of the parse node is '*NONE*', false otherwise.
+        """
         if super().satisfies(parseNode):
             data = parseNode.getLayerData(self.__second_language)
             return data is not None and data == "*NONE*"

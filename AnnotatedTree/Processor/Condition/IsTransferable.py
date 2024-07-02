@@ -14,6 +14,11 @@ class IsTransferable(IsLeafNode):
         self.__second_language = secondLanguage
 
     def satisfies(self, parseNode: ParseNodeDrawable) -> bool:
+        """
+        Checks if the node is a leaf node and is not a None or Null node.
+        :param parseNode: Parse node to check.
+        :return: True if the node is a leaf node and is not a None or Null node, false otherwise.
+        """
         if super().satisfies(parseNode):
             if IsNoneNode(self.__second_language).satisfies(parseNode):
                 return False
