@@ -19,6 +19,12 @@ After all levels of processing are finished, the data structure stored for the s
 
 As is self-explanatory, 'turkish' tag shows the original Turkish word; 'morphologicalanalysis' tag shows the correct morphological parse of that word; 'semantics' tag shows the ID of the correct sense of that word; 'namedEntity' tag shows the named entity tag of that word; 'propbank' tag shows the semantic role of that word for the verb synset id (frame id in the frame file) which is also given in that tag.
 
+Annotated TreeBanks
+============
+[Penn-Treebank (15 Words)](http://104.247.163.162/nlptoolkit/turkish-treebank3.html)
+
+[Penn-Treebank (20 Words)](http://104.247.163.162/nlptoolkit/turkish-treebank4.html)
+
 Video Lectures
 ============
 
