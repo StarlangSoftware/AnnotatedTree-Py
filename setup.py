@@ -5,8 +5,8 @@ this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text(encoding="utf-8")
 
 setup(
-    name='NlpToolkit-AnnotatedTree',
-    version='1.0.23',
+    name='nlptoolkit_annotatedtree',
+    version='1.0.24',
     packages=['AnnotatedTree', 'AnnotatedTree.Layer', 'AnnotatedTree.Processor', 'AnnotatedTree.Processor.Condition',
               'AnnotatedTree.Processor.LayerExist', 'AnnotatedTree.Processor.LeafConverter',
               'AnnotatedTree.Processor.NodeModification'],
