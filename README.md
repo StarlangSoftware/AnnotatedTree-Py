@@ -37,7 +37,7 @@ You can also see [Cython](https://github.com/starlangsoftware/AnnotatedTree-Cy),
 
 ## Requirements
 
-* [Python 3.7 or higher](#python)
+* [Python 3.13 or higher](#python)
 * [Maven](#maven)
 * [Git](#git)
 
@@ -55,7 +55,7 @@ Install the [latest version of Git](https://git-scm.com/book/en/v2/Getting-Start
 
 ## Pip Install
 
-	pip3 install NlpToolkit-AnnotatedTree
+	pip3.13 install NlpToolkit-AnnotatedTree
 
 ## Download Code
 
@@ -64,7 +64,7 @@ Use Git for cloning the code to your local or below line for Ubuntu:
 
 	git clone <your-fork-git-link>
 
-A directory called DataStructure will be created. Or you can use below link for exploring the code:
+A directory called AnnotatedTree will be created. Or you can use below link for exploring the code:
 
 	git clone https://github.com/starlangsoftware/AnnotatedTree-Py.git
 
